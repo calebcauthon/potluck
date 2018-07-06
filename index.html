@@ -1,3 +1,23 @@
 <html>
-  hello!
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+  <div id="app">
+    {{ message }}
+    <div>Grain: White Rice</div>
+    <div>Veggie: Roasted Broccoli</div>
+    <div>Sauce: Chipotle Aoili</div>
+    <div>Bean: Pinto</div>
+
+    <button>I'm Feeling Lucky</button>
+  </div>
 </html>
+
+<script type="text/javascript">
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Hello Vue!'
+    }
+  })
+</script>
