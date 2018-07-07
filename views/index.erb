@@ -91,9 +91,10 @@
         }
       },
       pickRandomVeggie: function () {
-        const lastVeggie = this.veggie1;
+        const lastVeggie1 = this.veggie1;
+        const lastVeggie2 = this.veggie2;
 
-        while(lastVeggie == this.veggie1) {
+        while(lastVeggie1 == this.veggie1 || lastVeggie2 == this.veggie2) {
           this.veggie1 = findRandomThing(veggies);
           this.veggie2 = findRandomThing(veggies);
 

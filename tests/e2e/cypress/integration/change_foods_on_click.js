@@ -28,23 +28,27 @@ context('Actions', () => {
   });
 
   it('Changes first veggie when you change the recipe', () => {
-    cy.get('.veggie-1 > .name').then(veggieLabel => {
-      const originalText = veggieLabel.text();
-      cy.get('.orange-flat-button').click();
+    Array(100).fill().map(() => {
       cy.get('.veggie-1 > .name').then(veggieLabel => {
-        const newText = veggieLabel.text();
-        expect(newText).to.not.equal(originalText);
+        const originalText = veggieLabel.text();
+        cy.get('.orange-flat-button').click();
+        cy.get('.veggie-1 > .name').then(veggieLabel => {
+          const newText = veggieLabel.text();
+          expect(newText).to.not.equal(originalText);
+        });
       });
     });
   });
 
   it('Changes second veggie when you change the recipe', () => {
-    cy.get('.veggie-2 > .name').then(veggieLabel => {
-      const originalText = veggieLabel.text();
-      cy.get('.orange-flat-button').click();
+    Array(100).fill().map(() => {
       cy.get('.veggie-2 > .name').then(veggieLabel => {
-        const newText = veggieLabel.text();
-        expect(newText).to.not.equal(originalText);
+        const originalText = veggieLabel.text();
+        cy.get('.orange-flat-button').click();
+        cy.get('.veggie-2 > .name').then(veggieLabel => {
+          const newText = veggieLabel.text();
+          expect(newText).to.not.equal(originalText);
+        });
       });
     });
   });
