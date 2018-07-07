@@ -25,14 +25,14 @@
         </div>
         <div class="name">{{ grain.name }}</div>
       </div>
-      <div class="ingredient veggie">
+      <div class="ingredient veggie veggie-1">
         <div class="background">
           <img v-bind:src="veggie1.image" />
           <span class="category">Veggie #1</span>
         </div>
         <div class="name">{{ veggie1.name }}</div>
       </div>
-      <div class="ingredient veggie">
+      <div class="ingredient veggie veggie-2">
         <div class="background">
           <img v-bind:src="veggie2.image" />
           <span class="category">Veggie #2</span>
@@ -84,14 +84,22 @@
         this.showIngredients();
       },
       pickRandomGrain: function () {
-        this.grain = findRandomThing(grains);
+        const lastGrain = this.grain;
+
+        while(lastGrain == this.grain) {
+          this.grain = findRandomThing(grains);
+        }
       },
       pickRandomVeggie: function () {
-        this.veggie1 = findRandomThing(veggies);
-        this.veggie2 = findRandomThing(veggies);
+        const lastVeggie = this.veggie1;
 
-        while (this.veggie2 == this.veggie1) {
+        while(lastVeggie == this.veggie1) {
+          this.veggie1 = findRandomThing(veggies);
           this.veggie2 = findRandomThing(veggies);
+
+          while (this.veggie2 == this.veggie1) {
+            this.veggie2 = findRandomThing(veggies);
+          }
         }
       },
       pickRandomSauce: function () {
