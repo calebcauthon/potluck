@@ -1,0 +1,6 @@
+cyprus_task:
+  install_node_modules_script:
+    - cd tests/e2e/
+    - npm install
+  background_start_website_script: ruby server.rb
+  test_script: ./tests/e2e/node_modules/.bin/cypress run
