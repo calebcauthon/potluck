@@ -3,21 +3,63 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
   <div id="app">
-    {{ message }}
-    <div>Grain: White Rice</div>
-    <div>Veggie: Roasted Broccoli</div>
-    <div>Sauce: Chipotle Aoili</div>
-    <div>Bean: Pinto</div>
+    <div class="ingredient">Grain: {{ grain.name }}</div>
+    <div class="ingredient">Veggie: {{ veggie.name }}</div>
+    <div class="ingredient">Sauce: {{ sauce.name }}</div>
+    <div class="ingredient">Bean: {{ bean.name }}</div>
 
-    <button>I'm Feeling Lucky</button>
+    <div class="lucky">
+      <button class="lucky" v-on:click="randomizeMeal()">I'm Feeling Lucky</button>
+    </div>
   </div>
 </html>
 
+<script type="text/javascript" src="data.js"></script>
 <script type="text/javascript">
   var app = new Vue({
     el: '#app',
     data: {
-      message: 'Hello Vue!'
+      grain: findRandomThing(grains),
+      veggie: findRandomThing(veggies),
+      sauce: findRandomThing(sauces),
+      bean: findRandomThing(beans)
+    },
+    methods: {
+      randomizeMeal: function() {
+        this.pickRandomGrain();
+        this.pickRandomVeggie();
+        this.pickRandomSauce();
+        this.pickRandomBean();
+      },
+      pickRandomGrain: function () {
+        this.grain = findRandomThing(grains);
+      },
+      pickRandomVeggie: function () {
+        this.veggie = findRandomThing(veggies);
+      },
+      pickRandomSauce: function () {
+        this.sauce = findRandomThing(sauces);
+      },
+      pickRandomBean: function () {
+        this.bean = findRandomThing(beans);
+      }
     }
-  })
+  });
+
+  function findRandomThing(things) {
+    var max = things.length - 1;
+    var randomNumber = Math.floor(Math.random() * (Math.floor(max) + 1));
+    return things[randomNumber];
+  }
 </script>
+
+<style>
+.ingredient {
+  width: 100%; border-bottom: 1px solid #ccc; padding: 1rem 0;
+  text-align: center;
+  font-family: sans-serif;
+}
+div.lucky { width: 100%; padding: 3rem 0; }
+button.lucky { margin: 0 auto; display: block;}
+
+</style>
