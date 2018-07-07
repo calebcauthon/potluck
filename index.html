@@ -2,44 +2,57 @@
   <head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </head>
-  <div id="app">
-    <div class="ingredient grain">
-      <div class="background">
-        <img v-bind:src="grain.image" />
-        <span class="category">Grain</span>
-      </div>
-      <div class="name">{{ grain.name }}</div>
-    </div>
-    <div class="ingredient veggie">
-      <div class="background">
-        <img v-bind:src="veggie1.image" />
-        <span class="category">Veggie #1</span>
-      </div>
-      <div class="name">{{ veggie1.name }}</div>
-    </div>
-    <div class="ingredient veggie">
-      <div class="background">
-        <img v-bind:src="veggie2.image" />
-        <span class="category">Veggie #2</span>
-      </div>
-      <div class="name">{{ veggie2.name }}</div>
-    </div>
-    <div class="ingredient">
-      <div class="background">
-        <img v-bind:src="sauce.image" />
-        <span class="category">Sauce</span>
-      </div>
-      <div class="name">{{ sauce.name }}</div>
-    </div>
-    <div class="ingredient">
-      <div class="background">
-        <img v-bind:src="bean.image" />
-        <span class="category">Bean</span>
-      </div>
-      <div class="name">{{ bean.name }}</div>
-    </div>
+  <div id="app" v-on:load="randomizeMeal()">
     <div class="lucky">
       <button class="orange-flat-button" v-on:click="randomizeMeal()">Change it up</button>
+    </div>
+    <div class="lucky">
+      <button class="peter-river-flat-button" v-on:click="showRecipe()">Gimme the Recipe</button>
+    </div>
+    <div class="recipes" v-if="isShowingRecipe">
+      <div class="recipe">
+        <div v-for="ingredient in ingredients">
+          <h1>{{ ingredient.name }}</h1>
+          <iframe width="560" height="315" v-bind:src="ingredient.recipeURL" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="ingredients" v-if="isShowingIngredients">
+      <div class="ingredient grain">
+        <div class="background">
+          <img v-bind:src="grain.image" />
+          <span class="category">Grain</span>
+        </div>
+        <div class="name">{{ grain.name }}</div>
+      </div>
+      <div class="ingredient veggie">
+        <div class="background">
+          <img v-bind:src="veggie1.image" />
+          <span class="category">Veggie #1</span>
+        </div>
+        <div class="name">{{ veggie1.name }}</div>
+      </div>
+      <div class="ingredient veggie">
+        <div class="background">
+          <img v-bind:src="veggie2.image" />
+          <span class="category">Veggie #2</span>
+        </div>
+        <div class="name">{{ veggie2.name }}</div>
+      </div>
+      <div class="ingredient">
+        <div class="background">
+          <img v-bind:src="sauce.image" />
+          <span class="category">Sauce</span>
+        </div>
+        <div class="name">{{ sauce.name }}</div>
+      </div>
+      <div class="ingredient">
+        <div class="background">
+          <img v-bind:src="bean.image" />
+          <span class="category">Bean</span>
+        </div>
+        <div class="name">{{ bean.name }}</div>
+      </div>
     </div>
   </div>
 </html>
@@ -49,11 +62,17 @@
   var app = new Vue({
     el: '#app',
     data: {
-      grain: findRandomThing(grains),
-      veggie1: findRandomThing(veggies),
-      veggie2: findRandomThing(veggies),
-      sauce: findRandomThing(sauces),
-      bean: findRandomThing(beans)
+      grain: null,
+      veggie1: null,
+      veggie2: null,
+      sauce: null,
+      bean: null,
+      isShowingRecipe: false,
+      isShowingIngredients: true,
+      ingredients: []
+    },
+    beforeMount() {
+      this.randomizeMeal();
     },
     methods: {
       randomizeMeal: function() {
@@ -61,6 +80,8 @@
         this.pickRandomVeggie();
         this.pickRandomSauce();
         this.pickRandomBean();
+        this.ingredients = [this.grain, this.veggie1, this.veggie2, this.sauce, this.bean];
+        this.showIngredients();
       },
       pickRandomGrain: function () {
         this.grain = findRandomThing(grains);
@@ -78,6 +99,14 @@
       },
       pickRandomBean: function () {
         this.bean = findRandomThing(beans);
+      },
+      showRecipe: function() {
+        this.isShowingIngredients = false;
+        this.isShowingRecipe = true;
+      },
+      showIngredients: function() {
+        this.isShowingRecipe = false;
+        this.isShowingIngredients = true;
       }
     }
   });
@@ -90,6 +119,7 @@
 </script>
 
 <style>
+html { font-family: sans-serif; }
 .ingredient {
   width: 100%; border-bottom: 1px solid #ccc; padding: 1rem 0;
   max-height: 25%;
@@ -101,9 +131,35 @@
 .ingredient .background img { height: 5rem; z-index: 5; opacity: 1; margin: 0 auto; }
 .ingredient .name { font-size: 5rem; text-align: right; text-transform: lowercase; z-index: 10; position: relative }
 .ingredient > img { height: 5rem; position: absolute; z-index: 5; opacity: .3; margin: 0 auto; }
-/*.ingredient.grain { background: #ccc; }*/
-div.lucky { width: 100%; padding: 3rem 0; }
+
+div.lucky { width: 100%; }
 button.lucky { margin: 0 auto; display: block; height: 3rem; background: pink; border: none; color: #ccc; }
+
+/* #Peter River Flat Button
+==================================================*/
+.peter-river-flat-button {
+  position: relative;
+  vertical-align: top;
+  width: 100%;
+  height: 60px;
+  padding: 0;
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #3498db;
+  border: 0;
+  border-bottom: 2px solid #2a8bcc;
+  cursor: pointer;
+  -webkit-box-shadow: inset 0 -2px #2a8bcc;
+  box-shadow: inset 0 -2px #2a8bcc;
+}
+.peter-river-flat-button:active {
+  top: 1px;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 
 /* #Orange Flat Button
 ==================================================*/
