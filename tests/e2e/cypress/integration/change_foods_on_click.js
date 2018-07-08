@@ -3,6 +3,9 @@
 context('Actions', () => {
   beforeEach(() => {
     cy.visit('localhost:4567')
+
+    // wait for the page to load
+    cy.get('.orange-flat-button:visible', { 'timeout': 1500 });
   });
 
   it('has buttons', () => {
@@ -29,7 +32,7 @@ context('Actions', () => {
 
   it('Changes first veggie when you change the recipe', () => {
     Array(100).fill().map(() => {
-      cy.get('.veggie-1 > .name').then(veggieLabel => {
+      cy.get('.veggie-1:visible > .name').then(veggieLabel => {
         const originalText = veggieLabel.text();
         cy.get('.orange-flat-button').click();
         cy.get('.veggie-1 > .name').then(veggieLabel => {

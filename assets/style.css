@@ -64,3 +64,6 @@ button.lucky { margin: 0 auto; display: block; height: 3rem; background: pink; b
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+/* Hide Vue.js elements until the Vue application loads */
+[v-cloak] { display: none; }

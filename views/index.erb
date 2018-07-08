@@ -1,8 +1,14 @@
 <html>
   <head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+    <script type="text/javascript" src="/firebase-init.js"></script>
+    <script type="text/javascript" src="/app.js"></script>
+    <script type="text/javascript" src="/keen.js"></script>
   </head>
-  <div id="app" v-on:load="randomizeMeal()">
+  <div id="app" v-on:load="randomizeMeal()" v-cloak>
     <div class="lucky">
       <button class="orange-flat-button" v-on:click="randomizeMeal()">Change it up</button>
     </div>
@@ -56,10 +62,3 @@
     </div>
   </div>
 </html>
-
-<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
-<script type="text/javascript" src="/firebase-init.js"></script>
-<script type="text/javascript" src="/data.js"></script>
-<script type="text/javascript" src="/app.js"></script>
-<script type="text/javascript" src="/keen.js"></script>
-<link rel="stylesheet" type="text/css" href="style.css">
