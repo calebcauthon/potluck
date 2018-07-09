@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aws-sigv4 (1.0.3)
     mustermann (1.0.2)
     rack (2.0.5)
     rack-protection (2.0.3)
@@ -11,12 +12,15 @@ GEM
       rack-protection (= 2.0.3)
       tilt (~> 2.0)
     tilt (2.0.8)
+    vault (0.11.0)
+      aws-sigv4
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   sinatra
+  vault (~> 0.1)
 
 BUNDLED WITH
    1.15.4
